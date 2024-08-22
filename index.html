@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - 飲み会計算アプリ3</title>
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/vuetify@2.5.10/dist/vuetify.min.css'>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div id="app">
+  <div class="container">
+    <h1>飲み会計算アプリ</h1>
+    <div class="form-card">
+      <form @submit.prevent="calculate">
+        <div class="form-group">
+          <label for="totalAmount">合計金額:</label>
+          <input v-model="totalAmount" type="number" id="totalAmount" step="100" required>
+        </div>
+
+        <div class="form-group">
+          <label for="numberOfParticipants">参加人数:</label>
+          <input v-model="numberOfParticipants" type="number" id="numberOfParticipants" required>
+        </div>
+
+        <div class="form-group">
+          <label for="eventName">イベント名:</label>
+          <input v-model="eventName" type="text" id="eventName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="eventDate">イベント日付:</label>
+          <input v-model="eventDate" type="date" id="eventDate" required>
+        </div>
+
+        <div class="form-group">
+          <label for="participants">参加者 (カンマ区切り):</label>
+          <input v-model="participants" type="text" id="participants" required>
+        </div>
+
+        <div class="form-group">
+          <label for="paymentFlag">支払い済み:</label>
+          <input v-model="paymentFlag" type="checkbox" id="paymentFlag">
+        </div>
+
+        <div class="form-buttons">
+          <button type="submit" class="btn btn-primary">計算する</button>
+          <button type="button" @click="saveNomikaiEvent" class="btn btn-secondary">イベントを保存</button>
+          <button type="button" @click="getNomikaiEvent" class="btn btn-info">イベントを取得</button>
+        </div>
+      </form>
+    </div>
+
+    <div v-if="calculationResult" class="result-card">
+      <h2>結果</h2>
+      <p>一人当たりの金額: {{ calculationResult.amountPerParticipant }} 円</p>
+    </div>
+
+    <div v-if="eventHistory.length" class="event-history-card">
+      <h2>イベント履歴</h2>
+      <div v-for="event in eventHistory" :key="event.eventID" class="event-item">
+        <p><strong>イベント名:</strong> {{ event.eventName }}</p>
+        <p><strong>イベント日付:</strong> {{ event.eventDate }}</p>
+        <p><strong>合計金額:</strong> {{ event.totalAmount }} 円</p>
+        <p><strong>参加者:</strong> {{ event.participants }}</p>
+        <p><strong>支払い済み:</strong> {{ event.paymentFlag ? 'はい' : 'いいえ' }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- partial -->
+  <script src='https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/vuetify@2.5.10/dist/vuetify.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
